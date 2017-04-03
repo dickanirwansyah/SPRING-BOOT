@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Update Nasabah</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="container-fluid">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="page-header">
+                        <h3>Update Nasabah</h3>
+                    </div>
+                    <form action="/Nasabah/prosesUpdate" method="POST" th:object="${getnasabah}" class="form-horizontal" id="myForm">
+                        <input type="hidden" th:field="*{idnasabah}"/>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">id :</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="idnasabah" th:field="*{idnasabah}" readonly="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">nama :</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="nama" th:field="*{nama}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">telepon :</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="notelp" th:field="*{notelp}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">alamat :</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="alamat" th:field="*{alamat}" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-lg-offset-4">
+                            <button type="submit" class="btn btn-success">
+                                <span class="glyphicon glyphicon-save"></span>
+                                update
+                            </button>
+                            <a href="/Nasabah/Data" class="btn btn-default">
+                                <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                                back
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

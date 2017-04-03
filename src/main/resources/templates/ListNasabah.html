@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${title}"></title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="/assets/css/bootstrap.css" rel="stylesheet"/>
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="/assets/js/jquery-1.11.0.js"></script>
+        <script src="/assets/js/jquery.dataTables.js"></script>
+        <script src="/assets/js/dataTables.bootstrap.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript">
+            $(function (){
+               $("#myTabel").dataTable(); 
+            });
+        </script>
+        
+        <script type="text/javascript">
+            $(document).ready(function (){
+               $("#btn-add").click(function (){
+                   $("#tampil-data").modal('show');
+               });
+               $("#btn-close").click(function (){
+                  $("#tampil-data").modal('hide'); 
+               });
+               $("#btn-tutup").click(function(){
+                  $("#tampil-data").modal('hide'); 
+               });
+            });
+        </script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+               $("#btn-save").click(function (){
+                  var nama=$("#nama").val();
+                  var notelp=$("#notelp").val();
+                  var alamat=$("#alamat").val();
+                  var url="/Nasabah/insert";
+                  
+                  $.post(url, {nama:nama, notelp:notelp, alamat:alamat}, function(){
+                       $("#tampil-data").modal('hide');
+                       alert("data berhasil disimpan !");
+                       window.location.href="/Nasabah/Data";
+                   });
+                }); 
+            });
+        </script>
+           
+    </head>
+    <body>
+        <div class="container">
+            <div class="container-fluid">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="page-header">
+                        <h3>Data Nasabah</h3>
+                    </div>
+                    <button  class="btn btn-success" id="btn-add">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <b>Tambah Data</b>
+                    </button>
+                    <div class="page-header">
+                        <table class="table table-bordered table-striped" id="myTabel">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>nama</th>
+                                    <th>notelp</th>
+                                    <th>alamat</th>
+                                    <th>opsi</th>
+                                </tr>
+                            <tbody>
+                                <tr th:each="nasabah : ${listNasabah}">
+                                    <td th:text="${nasabah.idnasabah}"></td>
+                                    <td th:text="${nasabah.nama}"></td>
+                                    <td th:text="${nasabah.notelp}"></td>
+                                    <td th:text="${nasabah.alamat}"></td>
+                                    <td>
+                                        <a th:href="${'/Nasabah/Update/' + nasabah.idnasabah}" class="btn btn-success" >
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            update
+                                        </a>
+                                        <a th:href="${'/Nasabah/Delete/' + nasabah.idnasabah}" 
+                                           class="btn btn-default" onclick="return confirm('yakin ingin hapus data nasabah ini?')">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tampil-data" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content" role="document">
+                    <div class="modal-header">
+                        <button type="button" class="close" id="btn-close">
+                            <span aria-hidden="true">close</span>
+                        </button>
+                        <h3 class="alert alert-info">Form Insert Nasabah</h3>
+                        <div class="modal-body">
+                            <form action="" class="form-horizontal" id="myForm">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">nama :</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control" id="nama" name="nama"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">telepon :</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control" id="notelp" name="notelp"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">alamat :</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control" id="alamat" name="alamat"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" id="btn-save">
+                                        <span class="glyphicon glyphicon-save"></span>
+                                        save
+                                    </button>
+                                    <button type="button" class="btn btn-default" id="btn-tutup">
+                                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                                        back
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
